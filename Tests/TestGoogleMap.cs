@@ -21,48 +21,30 @@ namespace GoogleMap
             
             driver.FindElement(By.CssSelector("div > form")).Click();
 
-            Distance.Click();
+            Way.Click();
             Chlodna.SendKeys("Chłodna 51 Warszawa" + Keys.Enter);
+            PlacDefilad.SendKeys("Plac Defilad 1" + Keys.Enter);
+            WalkButton.Click();
+            string walkTimeValue = Time.Text;
+            string walkDistanceValue = Distance.Text;
 
-            driver.FindElement(By.CssSelector("#directions-searchbox-1 input")).SendKeys("Plac Defilad 1" + Keys.Enter);
+            BikeButton.Click();
+            string bikeTimeValue = Time.Text;
+            string bikeDistanceValue = Distance.Text;
 
-            driver.FindElement(By.CssSelector("img[aria-label='Pieszo']")).Click();
+            Reverse.Click();
+            string bikeReverseTimeValue = Time.Text;
+            string bikeReverseDistanceValue = Distance.Text;
 
-            IWebElement goingTime = driver.FindElement(By.CssSelector("#section-directions-trip-0 > div.MespJc > div:nth-child(3) > div.XdKEzd > div.Fk3sm.fontHeadlineSmall"));
-                string goingTimeValue = goingTime.Text;
-
-            IWebElement goingDistance =  driver.FindElement(By.CssSelector("#section-directions-trip-0 > div.MespJc > div:nth-child(3) > div.XdKEzd > div.ivN21e.tUEI8e.fontBodyMedium"));
-                string goingDistanceValue = goingDistance.Text;
-
-            // ----------------- 
-
-            driver.FindElement(By.CssSelector("img[aria-label='Na rowerze']")).Click();
-
-            IWebElement bicycleTime = driver.FindElement(By.CssSelector("#section-directions-trip-0 > div.MespJc > div:nth-child(3) > div.XdKEzd > div.Fk3sm.fontHeadlineSmall"));
-                string bicycleTimeValue = bicycleTime.Text;
-
-
-            IWebElement bicycleDistance = driver.FindElement(By.CssSelector("#section-directions-trip-0 > div.MespJc > div:nth-child(3) > div.XdKEzd > div.ivN21e.tUEI8e.fontBodyMedium"));
-                string bicycleDistanceValue = bicycleDistance.Text;
-
-            driver.FindElement(By.ClassName("reverse")).Click();
-
-            driver.FindElement(By.CssSelector("img[aria-label='Pieszo']")).Click();
+            WalkButton.Click();
+            string walkReverseTimeValue = Time.Text;
+            string walkReverseDistanceValue = Distance.Text;
 
 
-            string reserveGoingTimeValue = goingTime.Text;
-            string reserveGoingDistanceValue = goingDistance.Text;
-
-
-            driver.FindElement(By.CssSelector("img[aria-label='Na rowerze']")).Click();
-
-            string reserveBicycleTimeValue = bicycleTime.Text;
-            string reserveBicycleDistanceValue = bicycleDistance.Text;
-
-            Assert.True(Convert.ToInt32(bicycleTimeValue) < 40 && Convert.ToInt32(bicycleDistanceValue)  < 3);
-            Assert.True(Convert.ToInt32(bicycleTimeValue) < 40 && Convert.ToInt32(bicycleDistanceValue) < 3);
-            Assert.True(Convert.ToInt32(reserveGoingTimeValue) < 40 && Convert.ToInt32(reserveGoingDistanceValue) < 3);
-            Assert.True(Convert.ToInt32(reserveBicycleTimeValue) < 40 && Convert.ToInt32(reserveBicycleDistanceValue) < 3);
+            Assert.True(Convert.ToInt32(walkTimeValue) < 40 && Convert.ToInt32(walkDistanceValue)  < 3);
+            Assert.True(Convert.ToInt32(bikeTimeValue) < 15 && Convert.ToInt32(bikeDistanceValue) < 3);
+            Assert.True(Convert.ToInt32(bikeReverseTimeValue) < 15 && Convert.ToInt32(bikeReverseDistanceValue) < 3);
+            Assert.True(Convert.ToInt32(walkReverseTimeValue) < 40 && Convert.ToInt32(walkReverseDistanceValue) < 3);
 
         }
     }

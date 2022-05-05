@@ -10,13 +10,14 @@ namespace GoogleMap
     {
         public IWebDriver driver;
 
-        protected IWebElement Distance => driver.FindElement(By.CssSelector("button[aria-label='Trasa']"));
+        protected IWebElement Way => driver.FindElement(By.CssSelector("button[aria-label='Trasa']"));
         protected IWebElement Chlodna => driver.FindElement(By.CssSelector("#directions-searchbox-0 input"));
-        IWebElement PlacDefilad => driver.FindElement(By.CssSelector("#directions-searchbox-1 input"));
-        IWebElement GoImg => driver.FindElement(By.CssSelector("img[aria-label='Pieszo']"));
-        IWebElement GoingTime => driver.FindElement(By.CssSelector("#section-directions-trip-0 > div.MespJc > div:nth-child(3) > div.XdKEzd > div.Fk3sm.fontHeadlineSmall"));
-        IWebElement GoingDistance => driver.FindElement(By.CssSelector("#section-directions-trip-0 > div.MespJc > div:nth-child(3) > div.XdKEzd > div.ivN21e.tUEI8e.fontBodyMedium"));
-
+        protected IWebElement PlacDefilad => driver.FindElement(By.CssSelector("#directions-searchbox-1 input"));
+        protected IWebElement WalkButton => driver.FindElement(By.CssSelector("img[src*='walk']"));
+        protected IWebElement BikeButton => driver.FindElement(By.CssSelector("img[src*='bike']"));
+        protected IWebElement Time => driver.FindElement(By.CssSelector("#section-directions-trip-0 div[jsan*='fontHeadlineSmall']:nth-child(1)"));
+        protected IWebElement Distance => driver.FindElement(By.CssSelector("#section-directions-trip-0 div[jsan*='fontBodyMedium']:nth-child(2)"));
+        protected IWebElement Reverse => driver.FindElement(By.ClassName("reverse"));
         public void Browser()
         {
             driver = new ChromeDriver();
