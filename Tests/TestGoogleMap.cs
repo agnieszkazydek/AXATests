@@ -44,7 +44,7 @@ namespace GoogleMap
             Assert.True(Convert.ToInt32(walkTimeValue) < 40 && Convert.ToInt32(walkDistanceValue)  < 3);
             Assert.True(Convert.ToInt32(bikeTimeValue) < 15 && Convert.ToInt32(bikeDistanceValue) < 3);
             Assert.True(Convert.ToInt32(bikeReverseTimeValue) < 15 && Convert.ToInt32(bikeReverseDistanceValue) < 3);
-            Assert.True(Convert.ToInt32(walkReverseTimeValue) < 40 && Convert.ToInt32(walkReverseDistanceValue) < 3);
+            Assert.True(Convert.ToInt32(walkReverseTimeValue) < 40 && Convert.ToInt32(walkReverseDistanceValue) > 2);
 
         }
     }
