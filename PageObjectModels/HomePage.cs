@@ -11,7 +11,9 @@ namespace GoogleMap
     {
    
         public IWebDriver driver;
-    
+
+        public object ExpectedConditions { get; private set; }
+
         protected IWebElement Way => driver.FindElement(By.CssSelector("button[aria-label='Trasa']"));
         protected IWebElement Chlodna => driver.FindElement(By.CssSelector("#directions-searchbox-0 input"));
         protected IWebElement PlacDefilad => driver.FindElement(By.CssSelector("#directions-searchbox-1 input"));
@@ -21,7 +23,7 @@ namespace GoogleMap
         protected IWebElement Distance => driver.FindElement(By.CssSelector("#section-directions-trip-0 div[jsan*='fontBodyMedium']:nth-child(2)"));
         protected IWebElement Reverse => driver.FindElement(By.CssSelector("div.reverse"));
             
-        
+               
         public Tests TravelData()
         {
             string timeValue = Time.Text;

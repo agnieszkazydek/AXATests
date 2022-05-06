@@ -4,6 +4,7 @@ using System;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace GoogleMap
 {
@@ -43,15 +44,15 @@ namespace GoogleMap
 
 
         [Test]
-        public void LoadApplicationPage()
+        public void CheckTravelData()
         {
-            ExtentTest test = extent.CreateTest("Fact").Info("Test Started");
+            ExtentTest test = extent.CreateTest("CheckTravelData").Info("Test Started");
             driver = new ChromeDriver();
+            
+            driver.Navigate().GoToUrl(MapsUrl);
+            test.Log(Status.Info, "Opened URL");
 
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            driver.Navigate().GoToUrl(MapsUrl);
-
-            // driver.FindElement(By.CssSelector("div > form")).Click();
 
             Way.Click();
             Chlodna.SendKeys("Chłodna 51 Warszawa" + Keys.Enter);
@@ -60,28 +61,31 @@ namespace GoogleMap
 
             string timeWalk = TravelData().timeValue;
             string distanceWalk = TravelData().distanceValue;
-            Assert.True(double.Parse(timeWalk) < 40);
-            Assert.True(double.Parse(distanceWalk) < 3);
+            Assert.True(double.Parse(timeWalk) < 40 && double.Parse(distanceWalk) < 3);
+            test.Log(Status.Info, "Way from Chłodna 51 to Plac Defilad 1 takes less than 3 km and less than 40 minutes on foot");
 
             BikeButton.Click();
             string timeBike = TravelData().timeValue;
             string distanceBike = TravelData().distanceValue;
-            Assert.True(double.Parse(timeBike) < 15);
-            Assert.True(double.Parse(distanceBike) < 3);
+            Assert.True(double.Parse(timeBike) < 15 && double.Parse(distanceBike) < 3);
+            test.Log(Status.Info, "Way from Chłodna 51 to Plac Defilad 1 takes less than 3 km and less than 15 minutes using a bike");
 
             Reverse.Click();
             string timeBikeReverse = TravelData().timeValue;
             string distanceBikeReverse = TravelData().distanceValue;
-            Assert.True(double.Parse(timeBikeReverse) < 15);
-            Assert.True(double.Parse(distanceBikeReverse) < 3);
+            Assert.True(double.Parse(timeBikeReverse) < 15 && double.Parse(distanceBikeReverse) < 3);
+            test.Log(Status.Info, "Way from Plac Defilad 1 to Chłodna 51 takes less than 3 km and less than 15 minutes using a bike");
 
             WalkButton.Click();
             string timeWalkReverse = TravelData().timeValue;
             string distanceWalkReverse = TravelData().distanceValue;
-            Assert.True(double.Parse(timeWalkReverse) < 40);
-            Assert.True(double.Parse(distanceWalkReverse) < 3);
+            Assert.True(double.Parse(timeWalkReverse) < 40 && double.Parse(distanceWalkReverse) < 3);
+            test.Log(Status.Info, "Way from Plac Defilad 1 to Chłodna 51 takes less than 3 km and less than 40 minutes on foot");
 
-            driver.Quit();            
+            driver.Quit();
+
+            test.Log(Status.Pass, "Test Passed");
+           
         }
     }
 }
