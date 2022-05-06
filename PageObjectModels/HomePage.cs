@@ -10,6 +10,7 @@ namespace GoogleMap
     {
         public IWebDriver driver;
 
+
         protected IWebElement Way => driver.FindElement(By.CssSelector("button[aria-label='Trasa']"));
         protected IWebElement Chlodna => driver.FindElement(By.CssSelector("#directions-searchbox-0 input"));
         protected IWebElement PlacDefilad => driver.FindElement(By.CssSelector("#directions-searchbox-1 input"));
@@ -17,43 +18,16 @@ namespace GoogleMap
         protected IWebElement BikeButton => driver.FindElement(By.CssSelector("img[src*='bike']"));
         protected IWebElement Time => driver.FindElement(By.CssSelector("#section-directions-trip-0 div[jsan*='fontHeadlineSmall']:nth-child(1)"));
         protected IWebElement Distance => driver.FindElement(By.CssSelector("#section-directions-trip-0 div[jsan*='fontBodyMedium']:nth-child(2)"));
-        protected IWebElement Reverse => driver.FindElement(By.ClassName("reverse"));
-        public void Browser()
-        {
-            driver = new ChromeDriver();
-        }
-
-        
-
-        private const string PageUrl = "https://www.google.pl/maps/";
-        private const string PageTitle = "Mapy Google";
-
-
-        
+        protected IWebElement Reverse => driver.FindElement(By.CssSelector("div.reverse"));
             
-
-        }
-
-    internal class SetUpAttribute : Attribute
-    {
-    }
-
-    public void NavigateTo()
+        
+        public void TravelData()
         {
-            driver.Navigate().GoToUrl(PageUrl);
+            var time = Time.Text;
+            var distance = Distance.Text;
+            time = time.Split()[0];
+            distance = distance.Split()[0];
 
-            EnsurePageLoaded();
         }
-
-        public void EnsurePageLoaded()
-        {
-            bool pageHasLoaded = (driver.Url == PageUrl) && (driver.Title == PageTitle);
-
-            if (!pageHasLoaded)
-            {
-                driver.FindElement(By.CssSelector("div > form")).Click();
-            }
-        }
- 
     }
 }
