@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace GoogleMap
 {
     public class HomePage
     {
+   
         public IWebDriver driver;
-
-
+    
         protected IWebElement Way => driver.FindElement(By.CssSelector("button[aria-label='Trasa']"));
         protected IWebElement Chlodna => driver.FindElement(By.CssSelector("#directions-searchbox-0 input"));
         protected IWebElement PlacDefilad => driver.FindElement(By.CssSelector("#directions-searchbox-1 input"));
@@ -21,12 +22,14 @@ namespace GoogleMap
         protected IWebElement Reverse => driver.FindElement(By.CssSelector("div.reverse"));
             
         
-        public void TravelData()
+        public Tests TravelData()
         {
-            var time = Time.Text;
-            var distance = Distance.Text;
-            time = time.Split()[0];
-            distance = distance.Split()[0];
+            string timeValue = Time.Text;
+            string distanceValue = Distance.Text;
+            timeValue = timeValue.Split()[0];
+            distanceValue = distanceValue.Split()[0].Replace(",", ".");
+
+            return new Tests (timeValue, distanceValue);
 
         }
     }
