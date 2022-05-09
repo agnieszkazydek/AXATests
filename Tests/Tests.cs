@@ -20,6 +20,7 @@ namespace GoogleMap
             this.distanceValue = distanceValue;
         }
 
+
         private const string MapsUrl = "https://www.google.pl/maps/";
 
         ExtentReports extent = null;
@@ -42,6 +43,7 @@ namespace GoogleMap
         [TestCaseSource(typeof(HomePage), "BrowserToRunWith")]
         public void CheckTravelData(string browserName)
         {
+
             ExtentTest test = extent.CreateTest("CheckTravelData").Info("Test Started");
 
             Setup(browserName);
@@ -54,23 +56,26 @@ namespace GoogleMap
             Way.Click();
             Chlodna.SendKeys("Chłodna 51 Warszawa" + Keys.Enter);
             PlacDefilad.SendKeys("Plac Defilad 1" + Keys.Enter);
-            WalkButton.Click();
 
-            Tests data = TravelData();
-            Assert.True(data.timeValue < 40 && data.distanceValue < 3);
-            test.Log(Status.Info, "Way from Chłodna 51 to Plac Defilad 1 takes less than 3 km and less than 40 minutes on foot");
+            WalkButton.Click();
+            Assert.True(TravelData().timeValue < 40 && TravelData().distanceValue < 3);
+            test.Log(Status.Info, $"Expected walking time from Chłodna 51 to Plac Defilad 1 is < 40, Actual {TravelData().timeValue}");
+            test.Log(Status.Info, $"Expected walking distance from Chłodna 51 to Plac Defilad 1 is < 3, Actual {TravelData().distanceValue}");
 
             BikeButton.Click();
             Assert.True(TravelData().timeValue < 15 && TravelData().distanceValue < 3);
-            test.Log(Status.Info, "Way from Chłodna 51 to Plac Defilad 1 takes less than 3 km and less than 15 minutes using a bike");
+            test.Log(Status.Info, $"Expected cycling time from Chłodna 51 to Plac Defilad 1 is < 15, Actual {TravelData().timeValue}");
+            test.Log(Status.Info, $"Expected cycling distance from Chłodna 51 to Plac Defilad 1 is < 3, Actual {TravelData().distanceValue}");
 
             Reverse.Click();
-            Assert.True(data.timeValue < 15 && data.distanceValue < 3);
-            test.Log(Status.Info, "Way from Plac Defilad 1 to Chłodna 51 takes less than 3 km and less than 15 minutes using a bike");
+            Assert.True(TravelData().timeValue < 15 && TravelData().distanceValue < 3);
+            test.Log(Status.Info, $"Expected cycling time from Plac Defilad 1 to Chłodna 51  is < 15, Actual {TravelData().timeValue}");
+            test.Log(Status.Info, $"Expected cycling distance from Plac Defilad 1 to Chłodna 51 1 is < 3, Actual {TravelData().distanceValue}");
 
             WalkButton.Click();
-            Assert.True(data.timeValue < 40 && data.distanceValue < 3);
-            test.Log(Status.Info, "Way from Plac Defilad 1 to Chłodna 51 takes less than 3 km and less than 40 minutes on foot"); */
+            Assert.True(TravelData().timeValue < 40 && TravelData().distanceValue < 3);
+            test.Log(Status.Info, $"Expected walking time from Plac Defilad 1 to Chłodna 51  is < 40, Actual {TravelData().timeValue}");
+            test.Log(Status.Info, $"Expected walking distance from Plac Defilad 1 to Chłodna 51 1 is < 3, Actual {TravelData().distanceValue}");
 
             driver.Dispose();
 

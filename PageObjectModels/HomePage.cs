@@ -1,8 +1,8 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
+
 
 namespace GoogleMap
 {
@@ -10,6 +10,7 @@ namespace GoogleMap
     {
    
         public IWebDriver driver;
+        private object test;
 
         public object ExpectedConditions { get; private set; }
 
