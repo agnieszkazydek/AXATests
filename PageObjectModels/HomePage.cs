@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
@@ -24,12 +25,16 @@ namespace GoogleMap
                
         public Tests TravelData()
         {
-            string timeValue = Time.Text;
-            string distanceValue = Distance.Text;
-            timeValue = timeValue.Split()[0];
-            distanceValue = distanceValue.Split()[0].Replace(",", ".");
+            string time = Time.Text;
+            string distance = Distance.Text;
+            string timeSplit = time.Split()[0];
+            string distanceSplit = distance.Split()[0].Replace(",", ".");
 
-            return new Tests (timeValue, distanceValue);
+            double timeValue = double.Parse(timeSplit);
+            double distanceValue = double.Parse(distanceSplit);
+
+            return new Tests(timeValue, distanceValue);
+
 
         }
 
