@@ -1,9 +1,7 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
+using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace GoogleMap
 {
@@ -33,6 +31,29 @@ namespace GoogleMap
 
             return new Tests (timeValue, distanceValue);
 
+        }
+
+        public void Setup(string browserName)
+        {
+            if (browserName.Equals("firefox"))
+            {
+                driver = new FirefoxDriver();
+            }
+            
+            if (browserName.Equals("chrome"))
+            {
+                driver = new ChromeDriver();
+            }
+        }
+
+        public static IEnumerable<string> BrowserToRunWith()
+        {
+            string[] browsers = { "chrome", "firefox" };
+
+            foreach (string b in browsers)
+            {
+                yield return b;
+            }
         }
     }
 }

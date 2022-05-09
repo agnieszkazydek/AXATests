@@ -1,10 +1,8 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace GoogleMap
 {
@@ -26,8 +24,6 @@ namespace GoogleMap
 
         ExtentReports extent = null;
 
-        
-
         [OneTimeSetUp]
         public void ExtentStart()
         {
@@ -42,13 +38,14 @@ namespace GoogleMap
             extent.Flush();
         }
 
-
         [Test]
-        public void CheckTravelData()
+        [TestCaseSource(typeof(HomePage), "BrowserToRunWith")]
+        public void CheckTravelData(string browserName)
         {
             ExtentTest test = extent.CreateTest("CheckTravelData").Info("Test Started");
-            driver = new ChromeDriver();
-            
+
+            Setup(browserName);
+
             driver.Navigate().GoToUrl(MapsUrl);
             test.Log(Status.Info, "Opened URL");
 
