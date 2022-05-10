@@ -69,19 +69,27 @@ namespace GoogleMap
             PlacDefilad.SendKeys(streetsList[1] + Keys.Enter);
 
             WalkButton.Click();
-            Assert.True(TravelData().timeValue < 40 && TravelData().distanceValue < 3);
+            double time = TravelData().timeValue;
+            double distance = TravelData().distanceValue;
+            Assert.True(time < 40 && distance < 3);
             test.Log(Status.Info, $"{travelWayList[0]} {travelDataList[0]} from {streetsList[0]} to {streetsList[1]} is < 40 min and {travelDataList[1]} < 3 km");
 
             BikeButton.Click();
-            Assert.True(TravelData().timeValue < 15 && TravelData().distanceValue < 3);
+            time = TravelData().timeValue;
+            distance = TravelData().distanceValue;
+            Assert.True(time < 15 && distance < 3);
             test.Log(Status.Info, $"{travelWayList[1]} {travelDataList[0]} from {streetsList[0]} to {streetsList[1]} is < 15 min and {travelDataList[1]} < 3 km");
 
             Reverse.Click();
-            Assert.True(TravelData().timeValue < 15 && TravelData().distanceValue < 3);
+            time = TravelData().timeValue;
+            distance = TravelData().distanceValue;
+            Assert.True(time < 15 && distance < 3);
             test.Log(Status.Info, $"{travelWayList[1]} {travelDataList[0]} from {streetsList[1]} to {streetsList[0]} is < 15 min and {travelDataList[1]} < 3 km");
 
             WalkButton.Click();
-            Assert.True(TravelData().timeValue < 40 && TravelData().distanceValue < 3);
+            time = TravelData().timeValue;
+            distance = TravelData().distanceValue;
+            Assert.True(time < 40 && distance < 3);
             test.Log(Status.Info, $"{travelWayList[0]} {travelDataList[0]} from {streetsList[1]} to {streetsList[0]} is < 40 min and {travelDataList[1]} < 3 km");
 
             driver.Dispose();
