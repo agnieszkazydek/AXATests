@@ -22,7 +22,7 @@ namespace GoogleMap
         protected IWebElement Time => driver.FindElement(By.CssSelector("#section-directions-trip-0 div[jsan*='fontHeadlineSmall']:nth-child(1)"));
         protected IWebElement Distance => driver.FindElement(By.CssSelector("#section-directions-trip-0 div[jsan*='fontBodyMedium']:nth-child(2)"));
         protected IWebElement Reverse => driver.FindElement(By.CssSelector("div.reverse"));
-            
+
                
         public Tests TravelData()
         {
@@ -61,5 +61,5 @@ namespace GoogleMap
                 yield return b;
             }
         }
-    }
+     }
 }

@@ -3,6 +3,7 @@ using System;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace GoogleMap
 {
@@ -19,7 +20,6 @@ namespace GoogleMap
             this.timeValue = timeValue;
             this.distanceValue = distanceValue;
         }
-
 
         private const string MapsUrl = "https://www.google.pl/maps/";
 
@@ -43,6 +43,17 @@ namespace GoogleMap
         [TestCaseSource(typeof(HomePage), "BrowserToRunWith")]
         public void CheckTravelData(string browserName)
         {
+            var travelWayList = new List<string>();
+            travelWayList.Add("Walking");
+            travelWayList.Add("Cycling");
+
+            var travelDataList = new List<string>();
+            travelDataList.Add("time");
+            travelDataList.Add("distance");
+
+            var streetsList = new List<string>();
+            streetsList.Add("Chłodna 51");
+            streetsList.Add("Plac Defilad 1");
 
             ExtentTest test = extent.CreateTest("CheckTravelData").Info("Test Started");
 
@@ -54,28 +65,24 @@ namespace GoogleMap
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
             Way.Click();
-            Chlodna.SendKeys("Chłodna 51 Warszawa" + Keys.Enter);
-            PlacDefilad.SendKeys("Plac Defilad 1" + Keys.Enter);
+            Chlodna.SendKeys(streetsList[0] + Keys.Enter);
+            PlacDefilad.SendKeys(streetsList[1] + Keys.Enter);
 
             WalkButton.Click();
             Assert.True(TravelData().timeValue < 40 && TravelData().distanceValue < 3);
-            test.Log(Status.Info, $"Expected walking time from Chłodna 51 to Plac Defilad 1 is < 40, Actual {TravelData().timeValue}");
-            test.Log(Status.Info, $"Expected walking distance from Chłodna 51 to Plac Defilad 1 is < 3, Actual {TravelData().distanceValue}");
+            test.Log(Status.Info, $"{travelWayList[0]} {travelDataList[0]} from {streetsList[0]} to {streetsList[1]} is < 40 min and {travelDataList[1]} < 3 km");
 
             BikeButton.Click();
             Assert.True(TravelData().timeValue < 15 && TravelData().distanceValue < 3);
-            test.Log(Status.Info, $"Expected cycling time from Chłodna 51 to Plac Defilad 1 is < 15, Actual {TravelData().timeValue}");
-            test.Log(Status.Info, $"Expected cycling distance from Chłodna 51 to Plac Defilad 1 is < 3, Actual {TravelData().distanceValue}");
+            test.Log(Status.Info, $"{travelWayList[1]} {travelDataList[0]} from {streetsList[0]} to {streetsList[1]} is < 15 min and {travelDataList[1]} < 3 km");
 
             Reverse.Click();
             Assert.True(TravelData().timeValue < 15 && TravelData().distanceValue < 3);
-            test.Log(Status.Info, $"Expected cycling time from Plac Defilad 1 to Chłodna 51  is < 15, Actual {TravelData().timeValue}");
-            test.Log(Status.Info, $"Expected cycling distance from Plac Defilad 1 to Chłodna 51 1 is < 3, Actual {TravelData().distanceValue}");
+            test.Log(Status.Info, $"{travelWayList[1]} {travelDataList[0]} from {streetsList[1]} to {streetsList[0]} is < 15 min and {travelDataList[1]} < 3 km");
 
             WalkButton.Click();
             Assert.True(TravelData().timeValue < 40 && TravelData().distanceValue < 3);
-            test.Log(Status.Info, $"Expected walking time from Plac Defilad 1 to Chłodna 51  is < 40, Actual {TravelData().timeValue}");
-            test.Log(Status.Info, $"Expected walking distance from Plac Defilad 1 to Chłodna 51 1 is < 3, Actual {TravelData().distanceValue}");
+            test.Log(Status.Info, $"{travelWayList[0]} {travelDataList[0]} from {streetsList[1]} to {streetsList[0]} is < 40 min and {travelDataList[1]} < 3 km");
 
             driver.Dispose();
 
