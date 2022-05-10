@@ -10,9 +10,6 @@ namespace GoogleMap
     {
    
         public IWebDriver driver;
-        private object test;
-
-        public object ExpectedConditions { get; private set; }
 
         protected IWebElement Way => driver.FindElement(By.CssSelector("button[aria-label='Trasa']"));
         protected IWebElement Chlodna => driver.FindElement(By.CssSelector("#directions-searchbox-0 input"));
