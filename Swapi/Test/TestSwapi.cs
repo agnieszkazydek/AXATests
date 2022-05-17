@@ -9,7 +9,7 @@ namespace AxaSwapi
     public class TestSwapi
     {
         [Test]
-        public async Task Main(string[] args)
+        public async Task Swapi()
         {
             using (var httpClient = new HttpClient())
             {
